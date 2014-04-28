@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -7,12 +8,32 @@
 	<version>7.0.52</version>
 	<packaging>jar</packaging>
 
-	<name>tc-init-health-check-listener</name>
+	<name>Tomcat Initialization Health Check Lifecycle Listener</name>
+	<description>A Tomcat server lifecycle listener that checks server
+		health after initialization and optionally notifies an external process</description>
 	<url>https://github.com/goldendeal/tc-init-health-check-listener</url>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+	<licenses>
+		<license>
+			<name>GPL v2</name>
+			<url>http://www.gnu.org/licenses/gpl-2.0.html</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Konstantinos Natsakis</name>
+			<email>k.natsakis@xe.gr</email>
+			<organization>Golden Deal Editions S.A.</organization>
+			<organizationUrl>http://xe.gr/</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git@github.com:goldendeal/tc-init-health-check-listener.git</connection>
+		<developerConnection>scm:git:git@github.com:goldendeal/tc-init-health-check-listener.git</developerConnection>
+		<url>https://github.com/goldendeal/tc-init-health-check-listener</url>
+	</scm>
 
 	<dependencies>
 		<dependency>
@@ -21,6 +42,10 @@
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
 	<build>
 		<plugins>
