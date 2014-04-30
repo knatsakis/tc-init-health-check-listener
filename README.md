@@ -13,7 +13,11 @@ This lifecycle listener waits for a `Lifecycle.AFTER_START_EVENT` from the Serve
 
 Optionally, it is possible to notify an external process (e.g.: the startup script) via a FIFO or with a UDP packet and/or trigger a server shutdown upon failure.
 
-### Building
+### Version
+
+This version (7.0.52) was built and tested against Tomcat 7.0.52, but should work with newer versions as well.
+
+### Build
 
 ```bash
 git clone https://github.com/goldendeal/tc-init-health-check-listener.git
@@ -32,7 +36,7 @@ mvn package
 </dependency>
 ```
 
-### Installing
+### Install
 
 Copy `tc-init-health-check-listener/target/tc-init-health-check-listener-<version>.jar` to `${CATALINA_HOME}/lib` or `${CATALINA_BASE}/lib`
 
