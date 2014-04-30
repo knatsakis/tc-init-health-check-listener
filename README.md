@@ -13,7 +13,7 @@ This lifecycle listener waits for a `Lifecycle.AFTER_START_EVENT` from the Serve
 
 Optionally, it is possible to notify an external process (e.g.: the startup script) via a FIFO or with a UDP packet and/or trigger a server shutdown upon failure.
 
-## Building
+### Building
 
 ```bash
 git clone https://github.com/goldendeal/tc-init-health-check-listener.git
@@ -21,7 +21,18 @@ cd tc-init-health-check-listener
 mvn package
 ```
 
-## Installing
+### Maven
+
+```xml
+<dependency>
+  <groupId>gr.xe</groupId>
+  <artifactId>tc-init-health-check-listener</artifactId>
+  <version>7.0.52</version>
+  <packaging>jar</packaging>
+</dependency>
+```
+
+### Installing
 
 Copy `tc-init-health-check-listener/target/tc-init-health-check-listener-<version>.jar` to `${CATALINA_HOME}/lib` or `${CATALINA_BASE}/lib`
 
@@ -37,7 +48,7 @@ In your server.xml add a server lifecycle listener:
 </Server>
 ```
 
-#### Available Attributes
+### Available Attributes
 
 Attribute         | Type    | Default Value                | Description
 :-----------------|:--------|:-----------------------------|:-----------
@@ -46,11 +57,11 @@ notifyFIFO        | String  | none                         | A FIFO where the in
 notifyAddress     | String  | localhost                    | Destination address of the UDP packet containing the initialization status
 notifyPort        | Integer | Same as Server shutdown port | Destination port of the UDP packet containing the initialization status
 
-#### Shell usage
+### Shell usage
 
 The following have been tested with bash.
 
-##### FIFO
+#### FIFO
 
 If using notifyFIFO:
 
@@ -71,7 +82,7 @@ else
 fi
 ```
 
-##### UDP
+#### UDP
 
 If using notifyAddress and notifyPort:
 
