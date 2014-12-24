@@ -26,6 +26,7 @@ public class InitHealthCheckListener implements
 			.getLog(InitHealthCheckListener.class);
 
 	private boolean shutdownOnFailure = true;
+	private boolean startupCompleted = false;
 
 	public boolean isShutdownOnFailure() {
 		return shutdownOnFailure;
@@ -109,18 +110,37 @@ public class InitHealthCheckListener implements
 		if (!(event.getLifecycle() instanceof Server))
 			return;
 
-		if (!Lifecycle.AFTER_START_EVENT.equals(event.getType()))
-			return;
+		if (!startupCompleted && Lifecycle.AFTER_START_EVENT.equals(event.getType()))
+			handleEvent((Server) event.getLifecycle(), "startup");
+		else if (startupCompleted) {
+			if(Lifecycle.BEFORE_STOP_EVENT.equals(event.getType()))
+				handleEvent((Server) event.getLifecycle(), "prestop");
+			else if(Lifecycle.STOP_EVENT.equals(event.getType()))
+				handleEvent((Server) event.getLifecycle(), "stop");
+			else if(Lifecycle.AFTER_STOP_EVENT.equals(event.getType()))
+				handleEvent((Server) event.getLifecycle(), "poststop");
+		}
+		return;
+	}
 
-		Server server = (Server) event.getLifecycle();
-		log.info("Server startup event received. Checking component health..");
+	private void handleEvent(Server server, String name) {
+		log.info("Server " + name + " event received. Checking component health..");
 
 		final boolean succeeded = checkServer(server);
 
-		if (succeeded)
-			log.info("Server health OK!");
-		else
-			log.fatal("Initialization failure detected!");
+		if (!startupCompleted) {
+			if (succeeded)
+				log.info("Server health OK!");
+			else
+				log.fatal("Initialization failure detected!");
+		} else {
+			if(!succeeded) {
+				log.info("Shutdown detected!");
+			} else {
+				log.info("No change, server still appears okay.");
+				return;
+			}
+		}
 
 		if (notifyFIFO != null) {
 			Thread thread = new Thread(new Runnable() {
@@ -187,7 +207,7 @@ public class InitHealthCheckListener implements
 			}
 		}
 
-		if (!succeeded && shutdownOnFailure) {
+		if (!succeeded && shutdownOnFailure && !startupCompleted) {
 			log.fatal("Shutting down server!");
 
 			try {
@@ -201,6 +221,7 @@ public class InitHealthCheckListener implements
 			} catch (LifecycleException e) {
 				log.fatal("Destroy command failed: ", e);
 			}
-		}
+		} else if(succeeded && !startupCompleted)
+			startupCompleted = true;
 	}
 }
