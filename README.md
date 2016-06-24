@@ -15,7 +15,7 @@ Optionally, it is possible to notify an external process (e.g.: the startup scri
 
 ### Version
 
-This version (7.0.52) was built and tested against Tomcat 7.0.52, but should work with newer versions as well.
+This version (8.0.32) was built and tested against Tomcat 8.0.32, but should work with newer versions as well.
 
 ### Build
 
@@ -31,7 +31,7 @@ mvn package
 <dependency>
   <groupId>gr.xe</groupId>
   <artifactId>tc-init-health-check-listener</artifactId>
-  <version>7.0.52</version>
+  <version>8.0.32</version>
   <packaging>jar</packaging>
 </dependency>
 ```

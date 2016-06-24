@@ -5,7 +5,7 @@
 
 	<groupId>gr.xe</groupId>
 	<artifactId>tc-init-health-check-listener</artifactId>
-	<version>7.0.52</version>
+	<version>8.0.32</version>
 	<packaging>jar</packaging>
 
 	<name>Tomcat Initialization Health Check Lifecycle Listener</name>
